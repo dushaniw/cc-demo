@@ -23,21 +23,10 @@ metadata:
 spec:
   tls:
   - hosts:
-      - gw.wso2.com
-      - apim.wso2.com
+      - mgw.wso2.com
     secretName: tls-secret
   rules:
-    - host: apim.wso2.com
-      http:
-          paths:
-            - path: /
-              pathType: Prefix
-              backend:
-                service:
-                  name: wso2apim
-                  port:
-                    number: 9443
-    - host: gw.wso2.com
+    - host: mgw.wso2.com
       http:
           paths:
             - path: /

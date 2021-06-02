@@ -110,7 +110,7 @@ data:
 
     [enforcer.apimCredentials]
       username="admin"
-      password="$env{apim_admin_pwd}"
+      password="$env{enforcer_admin_pwd}"
 
     [enforcer.cache]
       enabled = true
@@ -156,16 +156,16 @@ data:
       # The message broker context factory
       jmsConnectionInitialContextFactory = "org.wso2.andes.jndi.PropertiesFileInitialContextFactory"
       # The message broker connection URL
-      jmsConnectionProviderUrl = "amqp://admin:admin@carbon/carbon?brokerlist='tcp://wso2apim:5672'"
+      jmsConnectionProviderUrl = "amqp://admin%40gogo.com:admin@carbon/carbon?brokerlist='tcp://wso2am-pattern-1-am-service:5672'"
       # Throttling configurations related to event publishing using a binary connection
       [enforcer.throttling.publisher]
         # Credentials required to establish connection between Traffic Manager
-        username = "admin"
+        username = "admin@gogo,com@carbon.super"
         password = "$env{tm_admin_pwd}"
         # Receiver URL and the authentication URL of the Traffic manager node/nodes
         [[enforcer.throttling.publisher.urlGroup]]
-          receiverURLs = ["tcp://wso2apim:9611"]
-          authURLs = ["ssl://wso2apim:9711"]
+          receiverURLs = ["tcp://wso2am-pattern-1-am-service:9611"]
+          authURLs = ["ssl://wso2am-pattern-1-am-service:9711"]
         # Data publisher object pool configurations
         [enforcer.throttling.publisher.pool]
           maxIdleDataPublishingAgents = 1000
@@ -215,7 +215,7 @@ data:
     # Issuer 1
     [[enforcer.security.tokenService]]
       name="Resident Key Manager"
-      issuer = "https://apim.wso2.com/oauth2/token"
+      issuer = "https://am.wso2.com/oauth2/token"
       certificateAlias = "wso2carbon"
       # URL of the JWKs endpoint
       jwksURL = ""
@@ -243,7 +243,7 @@ data:
     # Issuer 3
     [[enforcer.security.tokenService]]
         name="APIM Publisher"
-        issuer = "https://apim.wso2.com/publisher"
+        issuer = "https://am.wso2.com/publisher"
         certificateAlias = ""
         certificateFilePath = "/home/wso2/security/truststore/wso2carbon.pem"
 
@@ -275,12 +275,12 @@ data:
 
     [controlPlane]
       enabled = true
-      serviceUrl = "https://wso2apim:9443/"
-      username="admin"
+      serviceUrl = "https://wso2am-pattern-1-am-service:9443/"
+      username="admin@gogo.com@carbon.super"
       password="$env{cp_admin_pwd}"
       environmentLabels = ["Micro-Gateway"]
       retryInterval = 5
       skipSSLVerification=true
       # Message broker connection URL of the control plane
       [controlPlane.jmsConnectionParameters]
-        eventListeningEndpoints = ["amqp://admin:$env{cp_admin_pwd}@wso2apim:5672?retries='10'&connectdelay='30'"]
+        eventListeningEndpoints = ["amqp://admin%40gogo.com:$env{cp_admin_pwd}@wso2am-pattern-1-am-service:5672?retries='10'&connectdelay='30'"]

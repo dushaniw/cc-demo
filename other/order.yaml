@@ -1,0 +1,6 @@
+apiVersion: wso2.com/v1alpha2
+kind: API
+metadata:
+    name: order-api   
+spec:
+    swaggerConfigMapName: order-cm

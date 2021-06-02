@@ -1,0 +1,37 @@
+openapi: 3.0.1
+info:
+  title: Order Service
+  description: Sample Order Service for demo
+  termsOfService: http://swagger.io/terms/
+  version: 1.0.0
+servers:
+- url: http://orderservicedemo-service
+paths:
+  /order:
+    post:
+      summary: Place an order
+      operationId: placeOrder
+      requestBody:
+        description: order placed
+        content:
+          application/json:
+            schema:
+              type: object
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content: {}
+        400:
+          description: Invalid Order
+          content: {}
+      x-codegen-request-body-name: body
+x-wso2-production-endpoints:
+  urls:
+    - 'http://orderservicedemo-service.micro:8290'
+  type: http
+x-wso2-sandbox-endpoints:
+  urls:
+    - 'http://orderservicedemo-service.micro:8290'
+  type: http
+x-wso2-basePath: /foo

@@ -1,0 +1,46 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "orderservicedemo-deployment"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "integration"
+  strategy:
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 0
+    type: "RollingUpdate"
+  template:
+    metadata:
+      labels:
+        app: "integration"
+    spec:
+      containers:
+      - name: "micro-integrator"
+        image: "192.168.1.5:5000/rakhitharr/order:1.0.0"
+        imagePullPolicy: "Always"
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "orderservicedemo-service"
+spec:
+  type: "ClusterIP"
+  selector:
+    app: "integration"
+  ports:
+  - name: "orderservicedemo-management-http-port"
+    port: 9201
+    targetPort: 9201
+  - name: "orderservicedemo-pt-httpsport"
+    port: 8253
+    targetPort: 8253
+  - name: "orderservicedemo-pt-httpport"
+    port: 8290
+    targetPort: 8290
+  - name: "orderservicedemo-management-https-port"
+    port: 9164
+    targetPort: 9164
